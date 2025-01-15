@@ -2,6 +2,8 @@
 /assets/img/_ignore
 ./_ignore
 /_ignore
+/node_modules
+./node_modules
 
 ### macOS ###
 # General
