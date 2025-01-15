@@ -1,5 +1,8 @@
 ./assets/img/_ignore
 /assets/img/_ignore
+./_ignore
+/_ignore
+
 ### macOS ###
 # General
 .DS_Store
