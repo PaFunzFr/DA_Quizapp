@@ -17,3 +17,8 @@ main {
 .card-container {
     width: 25rem;
 }
+
+.single-answer:hover {
+    cursor: pointer;
+    background-color: rgb(229, 229, 229);
+}
