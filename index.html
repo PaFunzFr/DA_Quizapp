@@ -3,20 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fotogram</title>
+    <title>Quizapp</title>
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="./style.css">
     <link rel="icon" href=""><!--add favicon link-->
 </head>
 
-<body>
-    <header>
-        <section class="container">
-        </section>
-    </header>
+<body onload="renderInit()">
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+            <span class="navbar-brand-mb-0 h1">Quizapp</span>
+        </div>
+    </nav>
 
-    <main>
-        <section class="container">
-        </section>
+    <main id="mainSection">
+        <div class="card card-container" id="questionCard">
+            <img src="./assets/img/03_quiz/quiz-pic.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Frage</h5>
+                <div class="card mb-2">
+                    <div class="card-body">
+                        Antwort 1
+                    </div>
+                </div>
+                <div class="card mb-2">
+                    <div class="card-body">
+                        Antwort 2
+                    </div>
+                </div>
+                <div class="card mb-2">
+                    <div class="card-body">
+                        Antwort 3
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        Antwort 4
+                    </div>
+                </div>
+                <div class="question-footer mt-2">
+                    <div><b>1</b> von <b id="questionCountRef"></b> Fragen</div>
+                    <button type="button" class="btn btn-primary float-end">Nächste Frage</button>
+                </div>
+            </div>
+        </div>
     </main>
 
     <footer>
@@ -24,6 +54,6 @@
         </section>
     </footer>
 </body>
-
+<script src="./data/questiondb.js"></script>
 <script src="./script.js"></script>
 </html>
