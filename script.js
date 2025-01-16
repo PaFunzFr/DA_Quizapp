@@ -1,5 +1,7 @@
 let answerChosen = false;
+let rightAnswers = 0;
 
+let currentPage = 0;
 function renderInit() {
     renderSingleAnswer(0);
 }
@@ -16,6 +18,9 @@ function renderSingleAnswer(index) {
     `
     <div class="card card-container" id="questionCard${index}">
         <img src="./assets/img/03_quiz/quiz-pic.jpg" class="card-img-top" alt="...">
+        <div class="progress mt-2 mx-2">
+            <div class="progress-bar" role="progressbar" style="width: ${Math.round(currentPage / questions.length * 100)}%" aria-valuenow="${Math.round(currentPage / questions.length * 100)}" aria-valuemin="0" aria-valuemax="100">${Math.round(currentPage / questions.length * 100)}%</div>
+        </div>
         <div class="card-body">
             <h5 class="card-title">${questions[index].question}</h5>
             ${renderAnswers(index)}
@@ -50,12 +55,15 @@ function checkAnswer(event, index, i) {
         document.getElementById("btn-nxt").disabled = false;
         if (questions[index].answerOptions[i].rightAnswer) {
             showRightAnswer(index);
+            rightAnswers ++
         } else {
             event.target.style.backgroundColor = "red";
             showRightAnswer(index);
         }
     }
 }
+
+// check all entries of rightAnswer and do sth if rightAnswer = true
 function showRightAnswer(index) {
 for (let j = 0; j < questions[index].answerOptions.length; j++) {
         if (questions[index].answerOptions[j].rightAnswer) {
@@ -66,10 +74,14 @@ for (let j = 0; j < questions[index].answerOptions.length; j++) {
 
 function nextQuestion(index) {
     answerChosen = false;
+    currentPage ++;
+    console.log(currentPage);
     index++;
     if (index < questions.length) {
         renderSingleAnswer(index);
     } else {
-        document.getElementById('mainSection').innerHTML = "<h1>Quiz beendet!</h1>";
+        document.getElementById('mainSection').innerHTML = `
+            <h1 class="text-white">Quiz beendet!</h1>
+            <p class="text-white">Du hast ${rightAnswers} von ${questions.length} Fragen richtig beantwortet!`;
     }
 }
