@@ -3,6 +3,8 @@ let rightAnswers = 0;
 
 let currentPage = 0;
 function renderInit() {
+    rightAnswers = 0;
+    currentPage = 0;
     renderSingleAnswer(0);
 }
 
@@ -75,13 +77,20 @@ for (let j = 0; j < questions[index].answerOptions.length; j++) {
 function nextQuestion(index) {
     answerChosen = false;
     currentPage ++;
-    console.log(currentPage);
     index++;
     if (index < questions.length) {
         renderSingleAnswer(index);
     } else {
-        document.getElementById('mainSection').innerHTML = `
-            <h1 class="text-white">Quiz beendet!</h1>
-            <p class="text-white">Du hast ${rightAnswers} von ${questions.length} Fragen richtig beantwortet!`;
+        renderEndScreen();
     }
+}
+
+function renderEndScreen() {
+    document.getElementById('mainSection').innerHTML = `
+            <h1 class="text-white">Quiz beendet!</h1>
+            <div class="progress my-2 mx-2">
+                <div class="progress-bar" role="progressbar" style="width: 280px" aria-valuenow="${Math.round(currentPage / questions.length * 100)}" aria-valuemin="0" aria-valuemax="100">${Math.round(currentPage / questions.length * 100)}%</div>
+            </div>
+            <p class="text-white text-center">${rightAnswers} von ${questions.length} Fragen<br>wurden richtig beantwortet!</p>
+            <button type="button" class="btn btn-primary float-end" onclick="renderInit()">Spiele erneut</button>`;
 }
