@@ -62,7 +62,7 @@ function selectedAnswer(event, index, i) {
 }
 
 function checkAnswer(event, index, i) {
-    if (questions[index].answerOptions[i].rightAnswer) {
+    if (isAnswerRight(index, i)) {
         successAudio.play();
         showRightAnswer(index);
         rightAnswers ++
@@ -71,6 +71,11 @@ function checkAnswer(event, index, i) {
         event.target.style.backgroundColor = "red";
         showRightAnswer(index);
     }
+}
+
+// return expression if rightAnswer = true
+function isAnswerRight(index, i) {
+    return questions[index].answerOptions[i].rightAnswer;
 }
 
 // check all entries of rightAnswer and do sth if rightAnswer = true
