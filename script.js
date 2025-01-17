@@ -1,8 +1,8 @@
 let answerChosen = false;
 let rightAnswers = 0;
-let successAudio = new Audio('./assets/snd/success.mp3');
-let errorAudio = new Audio('./assets/snd/error.mp3');
-let resultAudio = new Audio('./assets/snd/result.mp3');
+const successAudio = new Audio('./assets/snd/success.mp3');
+const errorAudio = new Audio('./assets/snd/error.mp3');
+const resultAudio = new Audio('./assets/snd/result.mp3');
 
 let currentPage = 0;
 function renderInit() {
@@ -51,7 +51,6 @@ function renderAnswers(index) {
     return innerHTML;
 }
 
-
 function selectedAnswer(event, index, i) {
     if (answerChosen) {
         return
@@ -87,6 +86,7 @@ function nextQuestion(index) {
     answerChosen = false;
     currentPage ++;
     index++;
+    stopAllAudio();
     if (index < questions.length) {
         renderSingleAnswer(index);
     } else {
@@ -97,10 +97,19 @@ function nextQuestion(index) {
 
 function renderEndScreen() {
     document.getElementById('mainSection').innerHTML = `
-            <h1 class="text-white">Quiz beendet!</h1>
-            <div class="progress my-2 mx-2">
-                <div class="progress-bar" role="progressbar" style="width: 280px" aria-valuenow="${Math.round(currentPage / questions.length * 100)}" aria-valuemin="0" aria-valuemax="100">${Math.round(currentPage / questions.length * 100)}%</div>
-            </div>
-            <p class="text-white text-center">${rightAnswers} von ${questions.length} Fragen<br>wurden richtig beantwortet!</p>
-            <button type="button" class="btn btn-primary float-end" onclick="renderInit()">Spiele erneut</button>`;
+        <h1 class="text-white">Quiz beendet!</h1>
+        <div class="progress my-2 mx-2">
+            <div class="progress-bar" role="progressbar" style="width: 280px" aria-valuenow="${Math.round(currentPage / questions.length * 100)}" aria-valuemin="0" aria-valuemax="100">${Math.round(currentPage / questions.length * 100)}%</div>
+        </div>
+        <p class="text-white text-center">${rightAnswers} von ${questions.length} Fragen<br>wurden richtig beantwortet!</p>
+        <button type="button" class="btn btn-primary float-end" onclick="renderInit()">Spiele erneut</button>`;
+}
+
+function stopAllAudio() {
+    successAudio.pause();
+    successAudio.currentTime = 0;
+    errorAudio.pause();
+    errorAudio.currentTime = 0;
+    resultAudio.pause();
+    resultAudio.currentTime = 0;
 }
