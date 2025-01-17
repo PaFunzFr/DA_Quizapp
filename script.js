@@ -1,5 +1,8 @@
 let answerChosen = false;
 let rightAnswers = 0;
+let successAudio = new Audio('./assets/snd/success.mp3');
+let errorAudio = new Audio('./assets/snd/error.mp3');
+let resultAudio = new Audio('./assets/snd/result.mp3');
 
 let currentPage = 0;
 function renderInit() {
@@ -40,7 +43,7 @@ function renderAnswers(index) {
     for (let i = 0; i < questions[index].answerOptions.length; i++) {
         innerHTML += `
         <div class="card mb-2 single-answer" id="answer${index}${i}">
-            <div class="card-body" onclick="checkAnswer(event, ${index}, ${i})">
+            <div class="card-body" onclick="selectedAnswer(event, ${index}, ${i})">
                 ${questions[index].answerOptions[i].answer}
             </div>
         </div> `;
@@ -49,19 +52,25 @@ function renderAnswers(index) {
 }
 
 
-function checkAnswer(event, index, i) {
+function selectedAnswer(event, index, i) {
     if (answerChosen) {
         return
     } else {
         answerChosen = true;
         document.getElementById("btn-nxt").disabled = false;
-        if (questions[index].answerOptions[i].rightAnswer) {
-            showRightAnswer(index);
-            rightAnswers ++
-        } else {
-            event.target.style.backgroundColor = "red";
-            showRightAnswer(index);
-        }
+        checkAnswer(event, index, i);
+    }
+}
+
+function checkAnswer(event, index, i) {
+    if (questions[index].answerOptions[i].rightAnswer) {
+        successAudio.play();
+        showRightAnswer(index);
+        rightAnswers ++
+    } else {
+        errorAudio.play();
+        event.target.style.backgroundColor = "red";
+        showRightAnswer(index);
     }
 }
 
@@ -81,6 +90,7 @@ function nextQuestion(index) {
     if (index < questions.length) {
         renderSingleAnswer(index);
     } else {
+        resultAudio.play();
         renderEndScreen();
     }
 }
