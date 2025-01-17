@@ -1,10 +1,10 @@
 let answerChosen = false;
 let rightAnswers = 0;
+let currentPage = 0;
 const successAudio = new Audio('./assets/snd/success.mp3');
 const errorAudio = new Audio('./assets/snd/error.mp3');
 const resultAudio = new Audio('./assets/snd/result.mp3');
 
-let currentPage = 0;
 function renderInit() {
     rightAnswers = 0;
     currentPage = 0;
